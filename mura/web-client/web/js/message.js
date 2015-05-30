@@ -10,13 +10,14 @@ function reloadMessages() {
 /**
  * メッセージの投稿
  */
-function sendMessage(body) {
+function sendMessage(name, body) {
     var success = function() {
+        $(".message-name").val("");
         $(".message-body").val("");
         reloadMessages();
     };
     var error   = function() { console.log("error") };
-    postMessage("mura", body, success, error);
+    postMessage(name, body, success, error);
 }
 
 /**
@@ -37,6 +38,7 @@ function appendMessage(message) {
 	var escapeBody = $("<div/>").text(message.body).html();
 	var escapeIcon = $("<div/>").text(message.icon).html();
 	var escapeCreated_at = $("<div/>").text(message.created_at).html();
+	var escapeName = $("<div/>").text(message.username).html();
 
     var messageHTML = '<tr><td>' +
         '<div class="media message">'　+
@@ -45,7 +47,7 @@ function appendMessage(message) {
         '</div>' +
         '<div class="media-body">' +
 		escapeCreated_at +
-        '<h4 class="media-heading"></h4>' +
+        '<h4 class="media-heading">' + escapeName + '</h4>' +
         escapeBody +
 	    '</div>' +
         '</div>' +
